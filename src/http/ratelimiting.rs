@@ -183,7 +183,6 @@ impl Ratelimiter {
             let bucket = Arc::clone(&self.routes.write().await.entry(route).or_default());
 
             bucket.lock().await.pre_hook(&route).await;
-            panic!("Your token :) {}", self.token);
             let request = req.build(&self.client, &self.token)?.build()?;
             let response = self.client.execute(request).await?;
 
